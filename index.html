@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>oz_carte2visite — Dématérialisez toutes vos cartes</title>
+<meta name="description" content="oz_carte2visite numérise et organise vos cartes de visite, cartes d'abonnement et cartes de fidélité, avec sauvegarde et transfert.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2430;
+    --ink-soft: #5B6472;
+    --paper: #FAF8F4;
+    --paper-raised: #FFFFFF;
+    --line: #DDD8CE;
+    --amber: #C97A2B;
+    --amber-soft: #F1E2CE;
+    --green: #4A7856;
+    --green-soft: #E1EBE2;
+    --blue: #3E6B8A;
+    --blue-soft: #DDE8EE;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: inherit; margin: 0; padding: 0; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink:#ECE7DC; --ink-soft:#A9A398; --paper:#14171B; --paper-raised:#1D2126;
+      --line:#33383F; --amber-soft:#3A2E1A; --green-soft:#1E2B22; --blue-soft:#1B2A33;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink:#ECE7DC; --ink-soft:#A9A398; --paper:#14171B; --paper-raised:#1D2126;
+    --line:#33383F; --amber-soft:#3A2E1A; --green-soft:#1E2B22; --blue-soft:#1B2A33;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav.top {
+    border-bottom: 1px solid var(--line);
+  }
+  nav.top .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 18px; padding-bottom: 18px;
+  }
+  .brand { font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:18px; text-decoration:none; }
+  .brand span { color: var(--amber); }
+  nav.top ul { display:flex; gap:10px; list-style:none; font-size:14px; }
+  nav.top a.link {
+    text-decoration:none; color: var(--ink); font-weight:600;
+    padding: 7px 14px; border-radius: 20px; background: var(--amber-soft);
+    transition: background 0.15s, color 0.15s;
+  }
+  nav.top a.link:hover { background: var(--amber); color: var(--paper); }
+  nav.top a.link.muted { background: transparent; color: var(--ink-soft); font-weight:400; padding: 7px 10px; }
+  nav.top a.link.muted:hover { background: var(--line); color: var(--ink); }
+
+  /* Hero */
+  header.hero { padding: 72px 0 56px; }
+  .eyebrow {
+    display:inline-block; font-size:13px; font-weight:600; color: var(--amber);
+    background: var(--amber-soft); padding: 4px 11px; border-radius: 20px; margin-bottom: 20px;
+  }
+  h1 {
+    font-family:'Fraunces',Georgia,serif; font-weight:700;
+    font-size: clamp(34px, 6vw, 52px); line-height:1.08; letter-spacing:-0.01em;
+    max-width: 15ch; margin-bottom: 20px;
+  }
+  .hero-lede { font-size: 18px; color: var(--ink-soft); max-width: 56ch; margin-bottom: 32px; }
+  .cta-row { display:flex; gap:14px; flex-wrap:wrap; }
+  .btn {
+    display:inline-block; text-decoration:none; font-weight:600; font-size:15px;
+    padding: 13px 22px; border-radius: 4px;
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.ghost { border: 1px solid var(--line); color: var(--ink); }
+
+  /* Section shared */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  .section-head { max-width: 60ch; margin-bottom: 36px; }
+  .section-eyebrow { font-size:13px; font-weight:600; color:var(--amber); margin-bottom:8px; }
+  h2 { font-family:'Fraunces',Georgia,serif; font-size: clamp(24px,4vw,32px); font-weight:600; }
+  .section-lede { color: var(--ink-soft); font-size:16px; margin-top:10px; }
+
+  /* Features grid */
+  .grid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .card {
+    background: var(--paper-raised); border:1px solid var(--line); border-radius:6px; padding:22px;
+  }
+  .card .icon { font-size:22px; margin-bottom:10px; display:block; }
+  .card h3 { font-family:'Fraunces',Georgia,serif; font-size:17px; font-weight:600; margin-bottom:8px; }
+  .card p { font-size:14.5px; color: var(--ink-soft); }
+
+  /* Card kinds */
+  .kinds { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; align-items:start; }
+  .kind { border-radius:6px; padding:24px 22px; }
+  .kind.k1 { background: var(--blue-soft); }
+  .kind.k2 { background: var(--green-soft); }
+  .kind.k3 { background: var(--amber-soft); }
+  .kind .icon { font-size:24px; display:block; margin-bottom:10px; }
+  .kind h3 { font-family:'Fraunces',Georgia,serif; font-size:17px; font-weight:600; margin-bottom:6px; }
+  .kind p { font-size:13.5px; color: var(--ink-soft); margin-bottom:14px; }
+  .kind ul { list-style:none; padding:0; margin:0; }
+  .kind li {
+    position:relative; padding-left:16px; font-size:13.5px; color: var(--ink);
+    margin-bottom:8px;
+  }
+  .kind li::before {
+    content:"—"; position:absolute; left:0; color: var(--ink-soft);
+  }
+
+  /* Publisher */
+  .pub {
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    background: var(--paper-raised); border:1px solid var(--line); border-radius:8px; padding:28px 30px;
+  }
+  .pub-name { font-family:'Fraunces',Georgia,serif; font-size:20px; font-weight:600; margin-bottom:4px; }
+  .pub-tag { color: var(--ink-soft); font-size:14.5px; }
+  .pub a.btn { white-space: nowrap; }
+
+  footer { padding: 40px 0 64px; }
+  footer .wrap {
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-size:13.5px; color: var(--ink-soft);
+  }
+  footer nav ul { display:flex; gap:8px; list-style:none; flex-wrap:wrap; }
+  footer a {
+    text-decoration:none; color: var(--ink); font-weight:600; font-size:13px;
+    padding: 6px 13px; border-radius: 20px; background: var(--amber-soft);
+    transition: background 0.15s, color 0.15s;
+  }
+  footer a:hover { background: var(--amber); color: var(--paper); }
+  footer > .wrap > span { color: var(--ink-soft); font-size:13.5px; }
+
+  @media (max-width: 640px) {
+    .grid, .kinds { grid-template-columns: 1fr; }
+    nav.top ul { display:none; }
+    .pub { flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">oz_carte<span>2</span>visite</a>
+    <ul>
+      <li><a class="link muted" href="#fonctionnalites">Fonctionnalités</a></li>
+      <li><a class="link muted" href="#formules">Formules</a></li>
+      <li><a class="link" href="guide.html">Mode d'emploi</a></li>
+      <li><a class="link" href="changelog.html" target="_blank" rel="noopener">Nouveautés</a></li>
+      <li><a class="link" href="privacy.html" target="_blank" rel="noopener">Confidentialité</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Application Android</span>
+    <h1>Toutes vos cartes, dématérialisées, au même endroit</h1>
+    <p class="hero-lede">
+      oz_carte2visite numérise et organise vos cartes de visite — les vôtres,
+      classées par activité, celles de vos collègues, de vos clients, de vos
+      fournisseurs, de tous les commerces que vous fréquentez (restaurant,
+      bar, fleuriste…) — mais aussi vos cartes d'abonnement (salle de sport,
+      pilates) et vos cartes de fidélité.
+    </p>
+    <p class="hero-lede">
+      Pensé pour un usage professionnel autant que personnel : vos données
+      restent sauvegardées et peuvent être échangées avec vos collègues.
+      Depuis une fiche, envoyez un e-mail, un SMS, ou ajoutez directement le
+      contact à votre répertoire — c'est toute la puissance
+      d'oz_carte2visite.
+    </p>
+    <div class="cta-row">
+      <a class="btn ghost" href="changelog.html" target="_blank" rel="noopener">Voir les nouveautés</a>
+      <a class="btn ghost" href="privacy.html" target="_blank" rel="noopener">Politique de confidentialité</a>
+    </div>
+  </div>
+</header>
+
+<section id="fonctionnalites">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="section-eyebrow">Trois usages, une application</p>
+      <h2>Pensé pour chaque type de carte</h2>
+      <p class="section-lede">Professionnel, personnel ou fidélité — chaque classeur adapte ses champs et ses fonctions à ce qu'il contient.</p>
+    </div>
+    <div class="kinds">
+      <div class="kind k1">
+        <span class="icon">💼</span>
+        <h3>Pro — Cartes de visite</h3>
+        <p>Collègues, clients, fournisseurs, contacts professionnels.</p>
+        <ul>
+          <li>Nom, entreprise, téléphone et e-mail détectés automatiquement depuis la photo</li>
+          <li>Appel, SMS, e-mail, WhatsApp en un geste</li>
+          <li>Partage, export et ajout aux contacts (Premium)</li>
+        </ul>
+      </div>
+      <div class="kind k2">
+        <span class="icon">🏋️</span>
+        <h3>Personnel &amp; loisir — Abonnements</h3>
+        <p>Salle de sport, club de pilates, et tout ce qui se renouvelle.</p>
+        <ul>
+          <li>Photo de la carte et code scanné, prêts à être présentés</li>
+          <li>Date d'expiration suivie automatiquement</li>
+          <li>Alerte de renouvellement un mois avant l'échéance</li>
+        </ul>
+      </div>
+      <div class="kind k3">
+        <span class="icon">🏷️</span>
+        <h3>Cartes de fidélité</h3>
+        <p>Vos commerces habituels, toujours à portée de main.</p>
+        <ul>
+          <li>Photo et code (QR ou code-barres) scanné une seule fois</li>
+          <li>Réaffichage instantané en caisse</li>
+          <li>Classées à part de vos cartes professionnelles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="section-eyebrow">Commun aux trois</p>
+      <h2>Classeurs, sauvegarde, transmission</h2>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="icon">🗂️</span>
+        <h3>Classeurs personnalisables</h3>
+        <p>Chaque classeur a sa propre couleur — un par client, par activité, ou comme vous le souhaitez.</p>
+      </div>
+      <div class="card">
+        <span class="icon">☁️</span>
+        <h3>Sauvegarde et transmission</h3>
+        <p>Exportez une sauvegarde complète, restaurez-la sur un autre appareil, ou transmettez une sélection précise de classeurs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="formules">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="section-eyebrow">Formules</p>
+      <h2>Gratuit pour commencer, Premium pour aller plus loin</h2>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>Sans publicité</h3>
+        <p>Une carte de visite, sans aucune publicité. Idéal pour essayer l'application.</p>
+      </div>
+      <div class="card">
+        <h3>Avec publicité</h3>
+        <p>Cartes illimitées, avec publicité à l'ouverture. Le transfert et l'export restent réservés à Premium.</p>
+      </div>
+      <div class="card">
+        <h3>Premium</h3>
+        <p>Cartes illimitées, sans publicité, réglages et transfert complets. Abonnement annuel via Google Play.</p>
+      </div>
+      <div class="card">
+        <h3>Vos données, chez vous</h3>
+        <p>Stockage local par défaut, sauvegardes sous votre contrôle. Voir la <a href="privacy.html" target="_blank" rel="noopener">politique de confidentialité</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="pub">
+      <div>
+        <p class="pub-name">Développé par Oz-Vitrine</p>
+        <p class="pub-tag">Attirez plus de clients dans votre commerce</p>
+      </div>
+      <a class="btn primary" href="http://ozbow75.free.fr/Oz-Vitrine/" target="_blank" rel="noopener">Découvrir Oz-Vitrine</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Oz-WEB — Christophe VIDAL</span>
+    <nav>
+      <ul>
+        <li><a href="guide.html">Mode d'emploi</a></li>
+        <li><a href="changelog.html" target="_blank" rel="noopener">Nouveautés</a></li>
+        <li><a href="privacy.html" target="_blank" rel="noopener">Confidentialité</a></li>
+        <li><a href="http://ozbow75.free.fr/Oz-Vitrine/" target="_blank" rel="noopener">Oz-Vitrine</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

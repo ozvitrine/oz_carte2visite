@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>oz_carte2visite — Historique des versions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2430;
+    --ink-soft: #5B6472;
+    --paper: #FAF8F4;
+    --paper-raised: #FFFFFF;
+    --line: #DDD8CE;
+    --amber: #C97A2B;
+    --amber-soft: #F1E2CE;
+    --green: #4A7856;
+    --green-soft: #E1EBE2;
+    --blue: #3E6B8A;
+    --blue-soft: #DDE8EE;
+    --radius: 3px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #ECE7DC;
+      --ink-soft: #A9A398;
+      --paper: #16191D;
+      --paper-raised: #1D2126;
+      --line: #33383F;
+      --amber-soft: #3A2E1A;
+      --green-soft: #1E2B22;
+      --blue-soft: #1B2A33;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #ECE7DC;
+    --ink-soft: #A9A398;
+    --paper: #16191D;
+    --paper-raised: #1D2126;
+    --line: #33383F;
+    --amber-soft: #3A2E1A;
+    --green-soft: #1E2B22;
+    --blue-soft: #1B2A33;
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  header.page {
+    margin-bottom: 56px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    color: var(--amber);
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(32px, 6vw, 44px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .lede {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 54ch;
+    margin: 0;
+  }
+
+  .rail {
+    position: relative;
+    padding-left: 28px;
+  }
+  .rail::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .release {
+    position: relative;
+    margin-bottom: 48px;
+  }
+  .release::before {
+    content: "";
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--amber);
+  }
+  .release.current::before {
+    background: var(--amber);
+  }
+
+  .release-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .release-version {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .release-date {
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: var(--radius);
+    background: var(--amber-soft);
+    color: var(--amber);
+  }
+  .release-summary {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 6px 0 18px;
+    max-width: 58ch;
+  }
+
+  .entry-group {
+    margin-bottom: 14px;
+  }
+  .entry-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+  }
+  ul.entries {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul.entries li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 7px;
+    font-size: 15px;
+  }
+  ul.entries li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--line);
+  }
+  ul.entries li.added::before { background: var(--green); }
+  ul.entries li.fixed::before { background: var(--blue); }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: var(--radius);
+    margin-right: 7px;
+    vertical-align: 1px;
+  }
+  .tag.added { background: var(--green-soft); color: var(--green); }
+  .tag.fixed { background: var(--blue-soft); color: var(--blue); }
+  .tag.changed { background: var(--amber-soft); color: var(--amber); }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  footer a {
+    text-decoration:none; color: var(--ink); font-weight:600; font-size:13px;
+    padding: 5px 12px; border-radius: 20px; background: var(--amber-soft);
+    display:inline-block; margin: 0 4px 6px 0;
+    transition: background 0.15s, color 0.15s;
+  }
+  footer a:hover { background: var(--amber); color: var(--paper); }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 40px 18px 72px; }
+    .rail { padding-left: 22px; }
+    .release::before { left: -22px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page">
+    <p class="eyebrow">oz_carte2visite</p>
+    <h1>Historique des versions</h1>
+    <p class="lede">Ce qui a changé, dans l'ordre — nouveautés, ajustements et corrections, application après application.</p>
+  </header>
+
+  <div class="rail">
+
+    <section class="release current">
+      <div class="release-head">
+        <span class="release-version">Version actuelle</span>
+        <span class="badge">En cours</span>
+      </div>
+      <p class="release-summary">Classeurs typés (abonnements, cartes de fidélité), abonnement Premium via Google Play, et une passe de finition sur toute l'application.</p>
+
+      <div class="entry-group">
+        <p class="entry-group-title">Classeurs Abonnement et Fidélité</p>
+        <ul class="entries">
+          <li class="added"><span class="tag added">Nouveau</span>Deux classeurs créés automatiquement dès l'installation, à côté des classeurs de cartes de visite.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Le champ « Entreprise » devient « Commerce » dans une carte de fidélité, et « Club » dans un abonnement.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Date d'expiration sur une carte d'abonnement, avec une alerte au lancement de l'application si elle tombe dans moins de 30 jours.</li>
+          <li class="changed"><span class="tag changed">Modifié</span>Ces deux classeurs peuvent être désactivés dans les réglages — réservé à la formule Premium.</li>
+          <li class="changed"><span class="tag changed">Modifié</span>Non sélectionnés par défaut dans la transmission de classeurs, pour éviter un envoi accidentel.</li>
+        </ul>
+      </div>
+
+      <div class="entry-group">
+        <p class="entry-group-title">Abonnement Premium</p>
+        <ul class="entries">
+          <li class="added"><span class="tag added">Nouveau</span>Premium s'obtient désormais par abonnement annuel via Google Play, directement depuis l'application.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Bouton « Restaurer mes achats », pour retrouver un abonnement actif après réinstallation ou changement de téléphone.</li>
+          <li class="changed"><span class="tag changed">Modifié</span>L'ancien système de licence par fichier signé a été retiré au profit de Google Play.</li>
+        </ul>
+      </div>
+
+      <div class="entry-group">
+        <p class="entry-group-title">Fiche d'une carte</p>
+        <ul class="entries">
+          <li class="added"><span class="tag added">Nouveau</span>Les actions sont regroupées en trois zones : Prendre contact, Transférer, Autres.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Contact WhatsApp ajouté, à côté de l'appel, du SMS et de l'e-mail.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Envoi d'une carte par e-mail, en plus du SMS déjà disponible.</li>
+          <li class="changed"><span class="tag changed">Modifié</span>Transférer une carte (partage, e-mail, SMS, export) est désormais réservé à la formule Premium.</li>
+        </ul>
+      </div>
+
+      <div class="entry-group">
+        <p class="entry-group-title">Reconnaissance automatique</p>
+        <ul class="entries">
+          <li class="added"><span class="tag added">Nouveau</span>Le nom de l'entreprise et celui du titulaire sont désormais déduits de la taille du texte et de l'adresse e-mail détectée, pas seulement de leur position sur la carte.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Un QR Code au format vCard remplit directement les champs, sans passer par les notes.</li>
+          <li class="changed"><span class="tag changed">Modifié</span>Si la photo et le QR Code se contredisent sur un champ, les deux valeurs sont proposées côte à côte.</li>
+        </ul>
+      </div>
+
+      <div class="entry-group">
+        <p class="entry-group-title">Réglages</p>
+        <ul class="entries">
+          <li class="added"><span class="tag added">Nouveau</span>La formule active (Sans publicité, Avec publicité, Premium) est affichée en tête de l'écran.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Passage possible de « Sans publicité » à « Avec publicité » directement depuis les réglages — sans retour en arrière.</li>
+          <li class="added"><span class="tag added">Nouveau</span>« Transmettre des classeurs » : choisir précisément quels classeurs envoyer, plutôt que toute la base.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Numéro de version et date de dernière mise à jour affichés en bas des réglages.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Lien vers cette page d'historique des versions, depuis les réglages.</li>
+          <li class="fixed"><span class="tag fixed">Corrigé</span>Le réglage des publicités personnalisées reste accessible même sans la formule Premium.</li>
+        </ul>
+      </div>
+
+      <div class="entry-group">
+        <p class="entry-group-title">Langue et confidentialité</p>
+        <ul class="entries">
+          <li class="added"><span class="tag added">Nouveau</span>Application disponible en français et en anglais, avec choix explicite au premier lancement.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Si le consentement publicitaire est refusé, deux issues sont proposées : le revoir, ou passer à la formule sans publicité — sans jamais fermer l'application.</li>
+          <li class="fixed"><span class="tag fixed">Corrigé</span>Les messages en bas d'écran ne recouvrent plus les boutons ni la barre de navigation d'Android.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="release">
+      <div class="release-head">
+        <span class="release-version">Version antérieure</span>
+      </div>
+      <p class="release-summary">Personnalisation visuelle et fiabilité générale.</p>
+      <div class="entry-group">
+        <ul class="entries">
+          <li class="added"><span class="tag added">Nouveau</span>Sept thèmes de couleur au choix pour l'ensemble de l'application.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Couleur personnalisable pour chaque classeur, gérée depuis les réglages.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Génération d'un QR Code pour ses propres cartes de visite.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Restauration d'une sauvegarde au choix : fusionner avec les données existantes, ou tout remplacer.</li>
+          <li class="fixed"><span class="tag fixed">Corrigé</span>Un classeur peut être renommé, sauf les classeurs par défaut.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="release">
+      <div class="release-head">
+        <span class="release-version">Première version</span>
+      </div>
+      <p class="release-summary">Fondations de l'application.</p>
+      <div class="entry-group">
+        <ul class="entries">
+          <li class="added"><span class="tag added">Nouveau</span>Numérisation d'une carte de visite par photo, avec reconnaissance automatique du texte.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Organisation des cartes par classeurs.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Sauvegarde et export au format .ozcard, import depuis un fichier reçu.</li>
+          <li class="added"><span class="tag added">Nouveau</span>Ajout direct au répertoire de contacts du téléphone.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <a href="index.html">oz_carte2visite</a> <a href="guide.html">Mode d'emploi</a> <a href="privacy.html">Confidentialité</a> <a href="http://ozbow75.free.fr/Oz-Vitrine/" target="_blank" rel="noopener">Oz-Vitrine</a>
+  </footer>
+
+</div>
+</body>
+</html>

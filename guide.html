@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>oz_carte2visite — Mode d'emploi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2430; --ink-soft: #5B6472;
+    --paper: #FAF8F4; --paper-raised:#FFFFFF; --line: #DDD8CE;
+    --amber: #C97A2B; --amber-soft: #F1E2CE;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: inherit; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --ink:#ECE7DC; --ink-soft:#A9A398; --paper:#16191D; --paper-raised:#1D2126; --line:#33383F; --amber-soft:#3A2E1A; }
+  }
+  :root[data-theme="dark"] { --ink:#ECE7DC; --ink-soft:#A9A398; --paper:#16191D; --paper-raised:#1D2126; --line:#33383F; --amber-soft:#3A2E1A; }
+
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:'IBM Plex Sans',system-ui,sans-serif; line-height:1.6; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 88px; }
+  a { color: var(--amber); }
+  .back { font-size: 14px; text-decoration:none; color: var(--ink-soft); }
+  .eyebrow { font-size:13px; color:var(--amber); font-weight:600; margin: 24px 0 8px; }
+  h1 { font-family:'Fraunces',Georgia,serif; font-size: clamp(28px,5vw,38px); font-weight:600; margin:0 0 12px; }
+  .lede { font-size: 16px; color: var(--ink-soft); max-width: 58ch; margin-bottom: 40px; }
+
+  .toc { display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 48px; }
+  .toc a {
+    font-size: 13px; text-decoration:none; color: var(--ink-soft);
+    background: var(--paper-raised); border:1px solid var(--line); border-radius:20px;
+    padding: 6px 13px;
+  }
+  .toc a:hover { color: var(--amber); border-color: var(--amber); }
+
+  section.step { margin-bottom: 40px; scroll-margin-top: 20px; }
+  .step-num {
+    display:inline-flex; align-items:center; justify-content:center;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--amber-soft); color: var(--amber); font-weight:600; font-size:13px;
+    margin-right: 10px;
+  }
+  h2 {
+    display:flex; align-items:center;
+    font-family:'Fraunces',Georgia,serif; font-size:20px; font-weight:600; margin: 0 0 10px;
+  }
+  .step p { font-size:15px; margin: 0 0 8px; color: var(--ink); max-width: 62ch; }
+  .step p.detail { color: var(--ink-soft); }
+  .step ul { margin: 8px 0 0; padding-left: 20px; }
+  .step li { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 4px; }
+
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line); font-size:13px; color:var(--ink-soft); }
+  footer a {
+    text-decoration:none; color: var(--ink); font-weight:600; font-size:13px;
+    padding: 5px 12px; border-radius: 20px; background: var(--amber-soft);
+    display:inline-block; margin: 0 4px 6px 0;
+    transition: background 0.15s, color 0.15s;
+  }
+  footer a:hover { background: var(--amber); color: var(--paper); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Retour à la présentation</a>
+  <p class="eyebrow">oz_carte2visite</p>
+  <h1>Mode d'emploi</h1>
+  <p class="lede">Tout ce qu'il faut savoir pour utiliser l'application, du premier scan à la sauvegarde.</p>
+
+  <nav class="toc">
+    <a href="#classeurs">Classeurs</a>
+    <a href="#ajouter">Ajouter une carte</a>
+    <a href="#reconnaissance">Reconnaissance automatique</a>
+    <a href="#qrcode">QR Code</a>
+    <a href="#consulter">Consulter une carte</a>
+    <a href="#partager">Partager et importer</a>
+    <a href="#sauvegardes">Sauvegardes</a>
+    <a href="#externe">Sauvegarde externe</a>
+    <a href="#formules">Formules</a>
+    <a href="#fermeture">Fermeture automatique</a>
+  </nav>
+
+  <section class="step" id="classeurs">
+    <h2><span class="step-num">1</span>Classeurs</h2>
+    <p>L'écran « Mes classeurs » affiche vos catégories de cartes. Ouvrez un classeur pour consulter les cartes qu'il contient. Un classeur ne peut être supprimé que lorsqu'il est vide.</p>
+    <p class="detail">Trois types de classeurs existent, choisis à la création et fixés pour toujours : Cartes de visite, Abonnement, et Cartes de fidélité. Les deux derniers sont créés automatiquement dès l'installation — ils peuvent être désactivés depuis les réglages, réservé à Premium. La couleur de chaque classeur se personnalise depuis Réglages → Couleurs des classeurs.</p>
+  </section>
+
+  <section class="step" id="ajouter">
+    <h2><span class="step-num">2</span>Ajouter une carte</h2>
+    <p>Ouvrez un classeur puis touchez « Ajouter une carte ». Prenez une photo ou sélectionnez l'image recto de la carte. Vous pouvez aussi ajouter une image verso.</p>
+    <p class="detail">Avec la formule Sans publicité, limitée à une carte, l'impossibilité d'en ajouter une deuxième est signalée dès ce bouton, avant même d'ouvrir l'écran de création.</p>
+  </section>
+
+  <section class="step" id="reconnaissance">
+    <h2><span class="step-num">3</span>Reconnaissance automatique</h2>
+    <p>L'application optimise l'image, détecte le texte et recherche un QR Code, puis tente de remplir directement les champs entreprise, nom, téléphone, e-mail et notes.</p>
+    <ul>
+      <li>Le nom de l'entreprise est repéré au texte le plus grand et le plus souvent en majuscules sur la carte.</li>
+      <li>Le nom du titulaire est recherché en le rapprochant de l'adresse e-mail détectée, quand c'est possible.</li>
+      <li>Si la photo et le QR Code donnent des valeurs différentes pour un même champ, les deux sont affichées à la suite, séparées par « / », pour que vous corrigiez vous-même.</li>
+    </ul>
+    <p class="detail">Vérifiez toujours les informations avant d'enregistrer.</p>
+  </section>
+
+  <section class="step" id="qrcode">
+    <h2><span class="step-num">4</span>QR Code</h2>
+    <p>Un QR Code au format vCard standard (celui que génère aussi cette application) remplit directement les champs de la carte.</p>
+    <p class="detail">Pour un autre format, les mêmes règles que la reconnaissance de texte s'appliquent au contenu du QR Code ; si rien d'exploitable n'est trouvé, le texte brut est ajouté aux notes.</p>
+  </section>
+
+  <section class="step" id="consulter">
+    <h2><span class="step-num">5</span>Consulter une carte</h2>
+    <p>Touchez une carte pour ouvrir sa fiche. Touchez une image recto ou verso pour l'afficher en grand format paysage.</p>
+    <p>Trois zones d'actions sont proposées :</p>
+    <ul>
+      <li><strong>Prendre contact</strong> — appeler, SMS, e-mail, WhatsApp.</li>
+      <li><strong>Transférer</strong> — envoyer la fiche par SMS ou e-mail, la partager en .ozcard, générer un QR Code. Réservé à la formule Premium.</li>
+      <li><strong>Autres</strong> — ajouter la carte aux contacts Android.</li>
+    </ul>
+  </section>
+
+  <section class="step" id="partager">
+    <h2><span class="step-num">6</span>Partager et importer</h2>
+    <p>Utilisez « Partager .ozcard », réservé à la formule Premium, pour envoyer une carte avec ses images.</p>
+    <p class="detail">Pour recevoir une carte, ouvrez Réglages puis « Importer une carte .ozcard » et choisissez son classeur — l'import reste disponible quelle que soit la formule.</p>
+  </section>
+
+  <section class="step" id="sauvegardes">
+    <h2><span class="step-num">7</span>Sauvegardes et transmission</h2>
+    <p>Les données sont sauvegardées localement après chaque modification. Depuis les réglages, réservés à la formule Premium, vous pouvez exporter une sauvegarde complète .ozbackup, la partager, puis la restaurer sur un autre téléphone — la restauration ajoute les cartes et classeurs absents sans écraser ceux qui existent déjà.</p>
+    <p class="detail">« Transmettre des classeurs » permet de choisir uniquement certains classeurs avant l'envoi, plutôt que la totalité de la base : le fichier se restaure exactement de la même façon, mais son nom précise qu'il ne s'agit pas d'une sauvegarde complète. Par défaut, les classeurs Abonnement et Fidélité n'y sont pas inclus — à vous de les ajouter si vous le souhaitez.</p>
+  </section>
+
+  <section class="step" id="externe">
+    <h2><span class="step-num">8</span>Sauvegarde externe</h2>
+    <p>Si votre formule le permet, choisissez un dossier local ou cloud dans les réglages. Une première copie est créée lors de l'activation, puis une seule copie externe figée est créée par semaine lors de la première modification.</p>
+    <p class="detail">Les sept dernières copies externes sont conservées.</p>
+  </section>
+
+  <section class="step" id="formules">
+    <h2><span class="step-num">9</span>Formules</h2>
+    <ul>
+      <li><strong>Sans publicité</strong> — une carte maximum.</li>
+      <li><strong>Avec publicité</strong> — cartes illimitées, sans transfert ni export, avec annonces au démarrage et au retour au premier plan. Le passage vers Avec publicité se fait depuis Réglages et est définitif.</li>
+      <li><strong>Premium</strong> — cartes illimitées, sans publicité, réglages et transfert complets. S'obtient par abonnement annuel via Google Play, depuis Réglages → Abonnement Premium. Le bouton « Restaurer mes achats » retrouve un abonnement déjà actif après réinstallation, sans nouveau paiement.</li>
+    </ul>
+  </section>
+
+  <section class="step" id="fermeture">
+    <h2><span class="step-num">10</span>Fermeture automatique</h2>
+    <p>L'application peut passer en arrière-plan après trois minutes sans activité. Ce mécanisme ne s'applique jamais pendant la création ou la modification d'une carte.</p>
+  </section>
+
+  <footer>
+    <a href="index.html">oz_carte2visite</a> <a href="changelog.html" target="_blank" rel="noopener">Nouveautés</a> <a href="privacy.html" target="_blank" rel="noopener">Confidentialité</a> <a href="http://ozbow75.free.fr/Oz-Vitrine/" target="_blank" rel="noopener">Oz-Vitrine</a>
+  </footer>
+</div>
+</body>
+</html>
