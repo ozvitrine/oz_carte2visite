@@ -78,8 +78,8 @@
     <a href="#qrcode">QR Code</a>
     <a href="#consulter">Consulter une carte</a>
     <a href="#partager">Partager et importer</a>
-    <a href="#sauvegardes">Sauvegardes</a>
-    <a href="#externe">Sauvegarde externe</a>
+    <a href="#sauvegardes">Protéger vos cartes</a>
+    <a href="#externe">Copie automatique</a>
     <a href="#formules">Formules</a>
     <a href="#fermeture">Fermeture automatique</a>
   </nav>
@@ -87,13 +87,13 @@
   <section class="step" id="classeurs">
     <h2><span class="step-num">1</span>Classeurs</h2>
     <p>L'écran « Mes classeurs » affiche vos catégories de cartes. Ouvrez un classeur pour consulter les cartes qu'il contient. Un classeur ne peut être supprimé que lorsqu'il est vide.</p>
-    <p class="detail">Trois types de classeurs existent, choisis à la création et fixés pour toujours : Cartes de visite, Abonnement, et Cartes de fidélité. Les deux derniers sont créés automatiquement dès l'installation — ils peuvent être désactivés depuis les réglages, réservé à Premium. La couleur de chaque classeur se personnalise depuis Réglages → Couleurs des classeurs.</p>
+    <p class="detail">Trois types de classeurs existent, choisis à la création et fixés pour toujours : Cartes de visite, Abonnement, et Cartes de fidélité. Les deux derniers sont créés automatiquement dès l'installation et restent visibles pour tous ; les désactiver (Réglages → Types de classeurs) est réservé à Premium, et vos cartes existantes sont alors conservées. La couleur de chaque classeur se personnalise depuis Réglages → Couleurs des classeurs.</p>
   </section>
 
   <section class="step" id="ajouter">
     <h2><span class="step-num">2</span>Ajouter une carte</h2>
     <p>Ouvrez un classeur puis touchez « Ajouter une carte ». Prenez une photo ou sélectionnez l'image recto de la carte. Vous pouvez aussi ajouter une image verso.</p>
-    <p class="detail">Avec la formule Sans publicité, limitée à une carte, l'impossibilité d'en ajouter une deuxième est signalée dès ce bouton, avant même d'ouvrir l'écran de création.</p>
+    <p class="detail">Le nombre de cartes est illimité, quelle que soit la formule.</p>
   </section>
 
   <section class="step" id="reconnaissance">
@@ -131,24 +131,33 @@
   </section>
 
   <section class="step" id="sauvegardes">
-    <h2><span class="step-num">7</span>Sauvegardes et transmission</h2>
-    <p>Les données sont sauvegardées localement après chaque modification. Depuis les réglages, réservés à la formule Premium, vous pouvez exporter une sauvegarde complète .ozbackup, la partager, puis la restaurer sur un autre téléphone — la restauration ajoute les cartes et classeurs absents sans écraser ceux qui existent déjà.</p>
-    <p class="detail">« Transmettre des classeurs » permet de choisir uniquement certains classeurs avant l'envoi, plutôt que la totalité de la base : le fichier se restaure exactement de la même façon, mais son nom précise qu'il ne s'agit pas d'une sauvegarde complète. Par défaut, les classeurs Abonnement et Fidélité n'y sont pas inclus — à vous de les ajouter si vous le souhaitez.</p>
+    <h2><span class="step-num">7</span>Protéger vos cartes</h2>
+    <p>Vos cartes sont stockées dans l'application : si vous la désinstallez, elles sont supprimées avec elle. Avant de désinstaller, faites l'un des deux gestes suivants (Réglages → Sauvegarde de vos cartes) :</p>
+    <ul>
+      <li><strong>Exporter une copie maintenant</strong> — crée un fichier .ozbackup (cartes, classeurs, images) à envoyer sur Drive, par e-mail ou dans un dossier.</li>
+      <li><strong>Copie automatique</strong> — voir ci-dessous.</li>
+    </ul>
+    <p>Pour restaurer, utilisez « Restaurer une sauvegarde » dans les réglages, ou l'étape de restauration proposée à la première ouverture après une réinstallation : les cartes et classeurs absents sont ajoutés sans écraser l'existant. Ces fonctions sont disponibles quelle que soit la formule.</p>
+    <p class="detail">« Transmettre des classeurs » permet de choisir uniquement certains classeurs avant l'envoi : le fichier se restaure de la même façon, mais son nom précise qu'il ne s'agit pas d'une sauvegarde complète. Par défaut, les classeurs Abonnement et Fidélité n'y sont pas inclus.</p>
   </section>
 
   <section class="step" id="externe">
-    <h2><span class="step-num">8</span>Sauvegarde externe</h2>
-    <p>Si votre formule le permet, choisissez un dossier local ou cloud dans les réglages. Une première copie est créée lors de l'activation, puis une seule copie externe figée est créée par semaine lors de la première modification.</p>
-    <p class="detail">Les sept dernières copies externes sont conservées.</p>
+    <h2><span class="step-num">8</span>Copie automatique</h2>
+    <ol>
+      <li>Choisissez un dossier de sauvegarde, sur le téléphone ou dans votre cloud.</li>
+      <li>Activez la copie automatique : une première copie est créée tout de suite.</li>
+    </ol>
+    <p>Ensuite, la copie de la semaine est mise à jour après chaque modification et les sept dernières semaines sont conservées. Ce dossier reste sur votre téléphone ou votre cloud même si vous désinstallez l'application.</p>
+    <p class="detail">Après la première carte, l'application vous propose une fois de choisir ce dossier. Il n'existe plus de copie interne : elle aurait disparu avec l'application.</p>
   </section>
 
   <section class="step" id="formules">
     <h2><span class="step-num">9</span>Formules</h2>
     <ul>
-      <li><strong>Sans publicité</strong> — une carte maximum.</li>
-      <li><strong>Avec publicité</strong> — cartes illimitées, sans transfert ni export, avec annonces au démarrage et au retour au premier plan. Le passage vers Avec publicité se fait depuis Réglages et est définitif.</li>
-      <li><strong>Premium</strong> — cartes illimitées, sans publicité, réglages et transfert complets. S'obtient par abonnement annuel via Google Play, depuis Réglages → Abonnement Premium. Le bouton « Restaurer mes achats » retrouve un abonnement déjà actif après réinstallation, sans nouveau paiement.</li>
+      <li><strong>Avec publicité</strong> — gratuite, cartes illimitées, avec annonces au démarrage et au retour au premier plan. Partage de cartes et réglages d'apparence verrouillés ; export, restauration et copie automatique restent disponibles.</li>
+      <li><strong>Premium</strong> — cartes illimitées, sans publicité, tous les réglages et le transfert de cartes. S'obtient par abonnement annuel via Google Play (gratuit pendant la phase de test). Le bouton « Restaurer mes achats » retrouve un abonnement déjà actif après réinstallation, sans nouveau paiement.</li>
     </ul>
+    <p class="detail">Vous changez de formule à tout moment depuis Réglages → Formule actuelle.</p>
   </section>
 
   <section class="step" id="fermeture">
