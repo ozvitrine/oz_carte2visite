@@ -62,6 +62,16 @@
     transition: background 0.15s, color 0.15s;
   }
   footer a:hover { background: var(--amber); color: var(--paper); }
+
+  /* Fond : mélange de cartes estompé */
+  :root { --fond-op: .09; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --fond-op: .06; } }
+  :root[data-theme="dark"] { --fond-op: .06; }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: url("fond-cartes.svg") 0 0 / 720px auto repeat;
+    opacity: var(--fond-op);
+  }
 </style>
 </head>
 <body>

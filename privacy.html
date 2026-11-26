@@ -41,6 +41,16 @@
     transition: background 0.15s, color 0.15s;
   }
   footer a:hover { background: var(--amber); color: var(--paper); }
+
+  /* Fond : mélange de cartes estompé */
+  :root { --fond-op: .09; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --fond-op: .06; } }
+  :root[data-theme="dark"] { --fond-op: .06; }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: url("fond-cartes.svg") 0 0 / 720px auto repeat;
+    opacity: var(--fond-op);
+  }
 </style>
 </head>
 <body>
@@ -48,7 +58,7 @@
   <a class="back" href="index.html">← Retour à la présentation</a>
   <p class="eyebrow">oz_carte2visite</p>
   <h1>Politique de confidentialité</h1>
-  <p class="updated">Dernière mise à jour : 29 octobre 2026</p>
+  <p class="updated">Dernière mise à jour : 26 novembre 2026</p>
 
   <div class="pub-card">
     <p><strong>Oz-Vitrine</strong> — Christophe VIDAL, micro-entrepreneur</p>
